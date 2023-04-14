@@ -1,29 +1,42 @@
 package model;
 
-public class Data<T1 extends Comparable<T1>,T2 extends Comparable<T2>> {
+public class Data<K extends Comparable<K>, V extends Comparable<V>> {
+
+    /** x-value of the data */
+    private K x;
     
-    private T1 o1;
-    private T2 o2;
+    /** y-value of the data */
+    private V y;
 
-    public Data(T1 o1, T2 o2){
-        this.o1 = o1;
-        this.o2 = o2;
+    /** The depth of the data in the tree */
+    private int depth;
+
+    public Data(K x, V y){
+        this.x = x;
+        this.y = y;
     }
 
-    public T1 getO1() {
-        return o1;
+    public K x() {
+        return x;
     }
 
-    public void setO1(T1 o1) {
-        this.o1 = o1;
+    public V y() {
+        return y;
     }
 
-    public T2 getO2() {
-        return o2;
+    public void setX(K x) {
+        this.x = x;
     }
 
-    public void setO2(T2 o2) {
-        this.o2 = o2;
+    public void setY(V y) {
+        this.y = y;
+    }
+
+    public int compare(Data<K,V> o) {
+        if(depth % 2 == 0)
+            return this.x.compareTo(o.x());
+
+        return this.y.compareTo(o.y());
     }
 
 }
