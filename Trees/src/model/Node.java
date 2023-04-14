@@ -1,6 +1,6 @@
 package model;
 
-public class Node<T> {
+public class Node<T>{
     
     /** The content of the node */
     private T data;

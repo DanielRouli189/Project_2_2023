@@ -4,7 +4,7 @@ public class Data<K extends Comparable<K>, V extends Comparable<V>> {
 
     /** x-value of the data */
     private K x;
-    
+
     /** y-value of the data */
     private V y;
 
@@ -14,6 +14,7 @@ public class Data<K extends Comparable<K>, V extends Comparable<V>> {
     public Data(K x, V y){
         this.x = x;
         this.y = y;
+        depth = 0;
     }
 
     public K x() {
@@ -24,6 +25,10 @@ public class Data<K extends Comparable<K>, V extends Comparable<V>> {
         return y;
     }
 
+    public int depth() {
+        return depth;
+    }
+
     public void setX(K x) {
         this.x = x;
     }
@@ -32,11 +37,12 @@ public class Data<K extends Comparable<K>, V extends Comparable<V>> {
         this.y = y;
     }
 
-    public int compare(Data<K,V> o) {
-        if(depth % 2 == 0)
-            return this.x.compareTo(o.x());
+    public void setDepth(int depth) {
+        this.depth = depth;
+    }
 
-        return this.y.compareTo(o.y());
+    public int compare(Data<K,V> o) {
+        return (depth % 2 == 0) ? this.x.compareTo(o.x()) : this.y.compareTo(o.y());
     }
 
 }
