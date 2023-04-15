@@ -92,6 +92,11 @@ public class KdTree<K extends Comparable<K>, V extends Comparable<V>> {
         return root;
     }
 
+    /**
+     * In case I have enough time this will be implemented
+     * @param key
+     * @return
+     */
     public int remove(Data<K,V> key) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'remove'");
