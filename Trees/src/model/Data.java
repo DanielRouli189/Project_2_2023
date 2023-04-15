@@ -11,7 +11,7 @@ public class Data<K extends Comparable<K>, V extends Comparable<V>> {
     /** The depth of the data in the tree */
     private int depth;
 
-    public Data(K x, V y){
+    public Data(K x, V y) {
         this.x = x;
         this.y = y;
         depth = 0;
@@ -43,6 +43,11 @@ public class Data<K extends Comparable<K>, V extends Comparable<V>> {
 
     public int compare(Data<K,V> o) {
         return (depth % 2 == 0) ? this.x.compareTo(o.x()) : this.y.compareTo(o.y());
+    }
+
+    
+    public int equals(Data<K,V> o) {
+        return this.x == o.x() && this.y == o.y() ? 0 : 1;
     }
 
 }

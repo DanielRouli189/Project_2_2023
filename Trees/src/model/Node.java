@@ -14,7 +14,6 @@ public class Node<T>{
     /** The depth of the node in the tree*/
     private int depth;
 
-
     /**
      * Creates a new instance of the {@code Node} class.
      * @param data
@@ -56,4 +55,5 @@ public class Node<T>{
     public void setDepth(int depth){
         this.depth = depth;
     }
+
 }
