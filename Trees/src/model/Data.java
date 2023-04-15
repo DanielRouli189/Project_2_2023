@@ -45,7 +45,6 @@ public class Data<K extends Comparable<K>, V extends Comparable<V>> {
         return (depth % 2 == 0) ? this.x.compareTo(o.x()) : this.y.compareTo(o.y());
     }
 
-    
     public int equals(Data<K,V> o) {
         return this.x == o.x() && this.y == o.y() ? 0 : 1;
     }
