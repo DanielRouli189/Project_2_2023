@@ -1,5 +1,10 @@
 package model;
 
+/**
+ * 
+ * 
+ * @author nrouli
+ */
 public class KdTree<K extends Comparable<K>, V extends Comparable<V>> {
 
     /** The root of the kdTree */
@@ -10,20 +15,22 @@ public class KdTree<K extends Comparable<K>, V extends Comparable<V>> {
     }
 
    /**
-    * This is a Java function that inserts a key into a binary search tree and returns 0.
+    * Inserts a new node with a given key into a kd-Tree.
     * 
-    * @param key The key is the value that needs to be inserted into the binary search tree.
+    * @param key The value to be inserted into the kd-Tree
     * @return The method is returning an integer value of 0.
     */
     public int insert(Data<K,V> key) {
-      root = insert(key, root);
-      return 0;
+        if(key == null)
+            throw new IllegalArgumentException("key value is null");
+        root = insert(key, root);
+        return 0;
     }
 
     /**
-     * This is a recursive function that inserts a new node with a given key into a binary search tree.
+     * This is a recursive function that inserts a new node with a given key into a kd-tree.
      * 
-     * @param key The value to be inserted into the binary search tree.
+     * @param key The value to be inserted into the kd-tree.
      * @param root The root node of the binary search tree where the new key will be inserted.
      * @return The method is returning a Node object, which is the root of the binary search tree after
      * inserting the new key.
@@ -45,6 +52,9 @@ public class KdTree<K extends Comparable<K>, V extends Comparable<V>> {
     }
 
     public int search(Data<K,V> key) {
+        if(key == null)
+            throw new IllegalArgumentException("key value is null");
+        
         search(key, this.root);
         return 0;
     }
