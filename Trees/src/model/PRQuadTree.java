@@ -4,12 +4,10 @@ public class PRQuadTree<V> {
     
     private PRNode<V> root;
     
+    /** Boundaries of the PR-QuadTree */
     private double xMin;
-    
     private double xMax;
-    
     private double yMin;
-    
     private double yMax;
 
     public PRQuadTree(double xMin, double xMax, double yMin, double yMax) {
