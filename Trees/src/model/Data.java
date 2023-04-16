@@ -1,28 +1,50 @@
 package model;
 
-public class Data<K extends Comparable<K>, V extends Comparable<V>> {
+/**
+ * The {@code Data} class represents a generic 2D data-point in a kd-Tree.
+ * It contains the coordinates (x,y) which are two comparable values, the
+ * depth of the data in the kd-Tree used to determine the discriminator and
+ * also the data associated with the data point.
+ * 
+ */
+public class Data<K extends Comparable<? super K>, V> {
 
     /** x-value of the data */
     private K x;
 
     /** y-value of the data */
-    private V y;
+    private K y;
+
+    /** The value associated with the data-point */
+    private V value;
 
     /** The depth of the data in the tree */
     private int depth;
 
-    public Data(K x, V y) {
+
+    public Data(K x, K y) {
         this.x = x;
         this.y = y;
         depth = 0;
+    }
+
+    public Data(K x, K y, V value) {
+        this.x = x;
+        this.y = y;
+        depth = 0;
+        this.value = value;
     }
 
     public K x() {
         return x;
     }
 
-    public V y() {
+    public K y() {
         return y;
+    }
+
+    public V value() {
+        return value;
     }
 
     public int depth() {
@@ -33,7 +55,7 @@ public class Data<K extends Comparable<K>, V extends Comparable<V>> {
         this.x = x;
     }
 
-    public void setY(V y) {
+    public void setY(K y) {
         this.y = y;
     }
 
@@ -45,8 +67,9 @@ public class Data<K extends Comparable<K>, V extends Comparable<V>> {
         return (depth % 2 == 0) ? this.x.compareTo(o.x()) : this.y.compareTo(o.y());
     }
 
-    public int equals(Data<K,V> o) {
-        return this.x == o.x() && this.y == o.y() ? 0 : 1;
+    
+    public boolean eq(Data<K,V> o) {
+        return this.x == o.x() && this.y == o.y();
     }
 
 }

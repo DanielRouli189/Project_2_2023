@@ -9,7 +9,7 @@ package model;
  * @author nrouli
  * @since 2023-04
  */
-public class KdTree<K extends Comparable<K>, V extends Comparable<V>> {
+public class KdTree<K extends Comparable<? super K>, V> {
 
     /** The root of the kdTree */
     private Node<Data<K,V>> root;
@@ -76,7 +76,7 @@ public class KdTree<K extends Comparable<K>, V extends Comparable<V>> {
         if(root == null)
             return root;
 
-        if(key.equals(root.data()) == 0)
+        if(key.eq(root.data()))
             return root;
         
         if(key.compare(root.data()) >= 0) {
@@ -88,7 +88,6 @@ public class KdTree<K extends Comparable<K>, V extends Comparable<V>> {
             return search(key, root.left());
         }
         
-
         return root;
     }
 

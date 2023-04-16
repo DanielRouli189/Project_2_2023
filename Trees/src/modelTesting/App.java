@@ -11,9 +11,7 @@ import model.*;
  * 
  */
 public class App {
-     /* The array of test values to use when generating tests. */
-    private static final int[] TEST_VALUES = {200, 500, 1000, 10000, 30000, 50000, 70000, 100000};
-   
+    
     /* The Singleton instance of the App class. */
     private static App app = null;
 
