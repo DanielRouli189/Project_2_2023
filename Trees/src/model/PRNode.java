@@ -17,7 +17,8 @@ public class PRNode<V> {
     private PRNode<V> sw;
     /** outer right child of the node */
     private PRNode<V> se;
-    
+
+    /** The data contained in the node */
     private PRData<V> data;
 
     /** Leaf node Constructor */
@@ -42,12 +43,16 @@ public class PRNode<V> {
         return nw == null && ne == null && sw == null && se == null;
     }
 
-    public void insert(PRData<V> key) {
-        if(!hasData() && isLeaf())
+
+    public int insert(PRData<V> key) {
+        if(!hasData() && isLeaf()){
             data = new PRData<>(key.x(), key.y(), key.getValue());
+            return 1;
+        }
 
         double xMid = (xMin + xMax)/2;
         double yMid = (yMin + yMax)/2;
+
         if(key.x() < xMid && key.y() < yMid)
             sw = insert(key, sw, this.xMin, this.yMin, xMid, yMid);
         else if(key.x() >= xMid && key.y() < yMid)
@@ -55,7 +60,15 @@ public class PRNode<V> {
         else if(key.x() < xMid && key.y() >= yMid)
             nw = insert(key, nw, this.xMin, yMid, xMid, this.yMax);
         else
-            ne = insert(key, ne, xMid, yMid, this.xMax, this.yMax);   
+            ne = insert(key, ne, xMid, yMid, this.xMax, this.yMax);
+        
+        if(hasData() && !isLeaf()){
+            PRData<V> tmp = this.data;
+            this.data = null;
+            insert(tmp);
+        }
+
+        return 0;
     }
 
     public PRNode<V> insert(PRData<V> key, PRNode<V> root, double xMin, double yMin, double xMax, double yMax){
@@ -99,7 +112,7 @@ public class PRNode<V> {
     }
 
     public boolean hasData() {
-        return data != null;
+        return this.data != null;
     }
 
     public double getxMin() {

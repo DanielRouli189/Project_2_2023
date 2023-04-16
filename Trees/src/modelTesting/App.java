@@ -17,9 +17,11 @@ public class App {
 
     
     private KdTree<Integer,Integer> kdTree;
+    private PRQuadTree<Integer> prQtree;
 
     public App() {
         kdTree = new KdTree<>();
+        prQtree = new PRQuadTree<>(Config.N_MIN, Config.N_MAX, Config.N_MIN, Config.N_MAX);
     }
 
     public static App getInstance() {
@@ -39,5 +41,14 @@ public class App {
         System.out.println("key found at depth: "+i);
         i = app.kdTree.search(new Data<>(1,1));
         System.out.println("key found at depth: "+i);
+
+        app.prQtree.insert(new PRData<>(1,7));
+        app.prQtree.insert(new PRData<>(4,6));
+        app.prQtree.insert(new PRData<>(7,8));
+        app.prQtree.insert(new PRData<>(9,9));
+        app.prQtree.insert(new PRData<>(10,3));
+        app.prQtree.insert(new PRData<>(11,11));
+
+        
     }
 }
