@@ -1,6 +1,13 @@
 ## Getting Started
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+CSC201 - Data Structures and Algorithms
+Technical University of Crete.
+
+April, 2023
+
+The current project contains java implementations of the kd-Tree and the PR-QuadTree. The purpose of this exercise is to
+develop the insertion and searching algorithms of the above mentioned and determine their search multiplicities by performing
+random searches on them. 
 
 ## Folder Structure
 
@@ -10,9 +17,3 @@ The workspace contains two folders by default, where:
 - `lib`: the folder to maintain dependencies
 
 Meanwhile, the compiled output files will be generated in the `bin` folder by default.
-
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
-
-## Dependency Management
-
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).

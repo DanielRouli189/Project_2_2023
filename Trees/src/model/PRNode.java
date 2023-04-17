@@ -110,9 +110,11 @@ public class PRNode<V> {
 
     /**
      * 
+     * Performs a searching algorithm on the PR-QuadTree.
      * 
-     * @param key
-     * @return
+     * 
+     * @param key the data to be searched.
+     * @return true if the key is found, false, otherwise.
      */
     public synchronized boolean search(PRData<V> key) {
         if(this.data != null)

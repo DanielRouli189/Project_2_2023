@@ -43,7 +43,7 @@ public class App {
         return (app == null) ? new App() : app;
     }
 
-     /**
+    /**
      * Clears the generators and threads lists
      */
     public void resetThreads() {
@@ -78,7 +78,7 @@ public class App {
         resetThreads();
         // Creating a new TestGenerator and Thread for each value in the TEST_VALUES array.
         for(int i = 0; i < Config.TEST_VALUES.length; ++i) {
-            generators.add(new TestGenerator(Config.TEST_VALUES[i], 100));
+            generators.add(new TestGenerator(Config.TEST_VALUES[i], 1000));
             threads.add(new Thread(generators.get(i)));
         }
 

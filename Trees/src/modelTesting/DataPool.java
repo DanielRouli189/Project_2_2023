@@ -13,20 +13,23 @@ public class DataPool {
     /** The amount of data the data pool contains */
     private int size;
 
-    /** 
-     * Save the data in a concurrent hash map to be accessed safely by 
-     * different threads.
-     * 
-     */
+    /** Save the data in a List */
     private List<Double[]> pool;
 
+    /**
+     * Creates a new {@code DataPool} object with given parameters.
+     * @param size the size of the data pool.
+     */
     public DataPool(int size) {
         this.size = size;
         this.pool = new ArrayList<>(size);
     }
 
+    /**
+     * fill the list with random numbers.
+     */
     public void fill() {
-        double[] xy = new double[2]; 
+        double[] xy = new double[2];
         for(int i = 0; i < size; ++i) {
             xy= RNG.doubles(Config.N_MIN, Config.N_MAX).limit(2).toArray();
             Double x = xy[0];
