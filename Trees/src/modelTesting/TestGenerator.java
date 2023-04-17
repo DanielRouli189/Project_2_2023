@@ -112,7 +112,7 @@ public class TestGenerator implements Runnable  {
     public synchronized float failSearchPR() {
         float result = 0;
         int i = 0;
-        while( i < counts){
+        while(i < counts){
             double x = DataPool.RNG.nextInt(Config.N_MAX);
             double y = DataPool.RNG.nextInt(Config.N_MAX);
             if(!pr.getRoot().search(new PRData<>(x, y))) {
@@ -121,7 +121,7 @@ public class TestGenerator implements Runnable  {
             }
         }
 
-        return result;
+        return result/counts;
     }
 
     public KdTree<Double, Integer> getKd() { return kd; }

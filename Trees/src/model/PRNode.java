@@ -98,13 +98,13 @@ public class PRNode<V> {
         double xMid = (xMin + xMax)/2;
         double yMid = (yMin + yMax)/2;
         if(key.x() < xMid && key.y() < yMid)
-            return this.sw != null && this.sw.search(key) && ++depth > 0;
+            return (this.sw != null && this.sw.search(key)) & ++depth > 0;
         else if(key.x() >= xMid && key.y() < yMid)
-            return this.se != null && this.se.search(key) && ++depth > 0;
+            return (this.se != null && this.se.search(key)) & ++depth > 0;
         else if(key.x() < xMid && key.y() >= yMid)
-            return this.nw != null && this.nw.search(key) && ++depth > 0;
+            return (this.nw != null && this.nw.search(key)) & ++depth > 0;
         else
-            return this.ne != null && this.ne.search(key) && ++depth > 0;
+            return (this.ne != null && this.ne.search(key)) & ++depth > 0;
     }
 
     public PRNode<V> getNW() { return nw; }
