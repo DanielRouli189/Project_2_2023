@@ -55,7 +55,7 @@ public class App {
         resetThreads();
         // Creating a new TestGenerator and Thread for each value in the TEST_VALUES array.
         for(int i = 0; i < Config.TEST_VALUES.length; ++i) {
-            generators.add(new TestGenerator(Config.TEST_VALUES[i], 100));
+            generators.add(new TestGenerator(Config.TEST_VALUES[i], 50000));
             threads.add(new Thread(generators.get(i)));
         }
 
@@ -70,9 +70,10 @@ public class App {
         // Sorting the `TestStructure` list by the number of records.
         Collections.sort(TestGenerator.getTestStructureList(), (g1, g2) -> Utils.compare(g1.dataSize(), g2.dataSize()));
 
-        System.out.println("\n\n"+"|| Successful Searches k-d |"+ "| Failed Searches k-d |"+"| Successful Searches PR |"+ "| Failed Searches PR ||");
+        System.out.println("\n\n"+"|| Data Size |"+"| Successful Searches k-d |"+ "| Failed Searches k-d |"+"| Successful Searches PR |"+ "| Failed Searches PR ||");
         for(int i = 0; i < threads.size(); i++) {
-            System.out.printf("||%25.2f||%21.2f||%24.2f||%20.2f||\n", 
+            System.out.printf("||%11d|"+"|%25.2f||%21.2f||%24.2f||%20.2f||\n", 
+            TestGenerator.getTestStructureList().get(i).dataSize(),
             TestGenerator.getTestStructureList().get(i).successKD(), 
             TestGenerator.getTestStructureList().get(i).failKD(),
             TestGenerator.getTestStructureList().get(i).successPR(),

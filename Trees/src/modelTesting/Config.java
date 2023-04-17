@@ -12,4 +12,5 @@ public class Config {
     private Config(){
         throw new IllegalStateException("Configuration class");
     }
+
 }

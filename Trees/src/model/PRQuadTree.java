@@ -37,4 +37,26 @@ public class PRQuadTree<V> {
 
         return this.root.find(key);
     }
+
+    public PRNode<V> getRoot() { return root; }
+
+    public void setRoot(PRNode<V> root) { this.root = root; }
+
+    public double getxMin() { return xMin; }
+
+    public void setxMin(double xMin) { this.xMin = xMin; }
+
+    public double getxMax() { return xMax; }
+
+    public void setxMax(double xMax) { this.xMax = xMax; }
+
+    public double getyMin() { return yMin; }
+
+    public void setyMin(double yMin) { this.yMin = yMin; }
+
+    public double getyMax() { return yMax; }
+
+    public void setyMax(double yMax) { this.yMax = yMax; }
+
+    
 }

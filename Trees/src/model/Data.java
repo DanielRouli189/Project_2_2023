@@ -21,7 +21,6 @@ public class Data<K extends Comparable<? super K>, V> {
     /** The depth of the data in the tree */
     private int depth;
 
-
     public Data(K x, K y) {
         this.x = x;
         this.y = y;

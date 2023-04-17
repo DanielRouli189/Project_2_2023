@@ -35,7 +35,7 @@ public class TestGenerator implements Runnable  {
         pr = new PRQuadTree<>(Config.N_MIN, Config.N_MAX, Config.N_MIN, Config.N_MAX);
         dp = instantiateDataPool();
 
-        if(!isFull){
+        if(!isFull) {
             dp.fill();
             makeFull();
         }  
@@ -81,7 +81,7 @@ public class TestGenerator implements Runnable  {
 
     public synchronized float successSearchKD() {
         float result = 0;
-        int i = DataPool.RNG.nextInt(Config.N_MAX/2 - counts - 1);
+        int i = DataPool.RNG.nextInt(Config.N_MAX - counts);
         int bound = i + counts;
         for(int j = i; j < bound; ++j)
             result += kd.search(new Data<>(dp.getPool().get(j)[0], dp.getPool().get(j)[1]));
@@ -91,15 +91,13 @@ public class TestGenerator implements Runnable  {
 
     public synchronized float failSearchKD() {
         float result = 0;
-
         for(int i = 0; i < counts; ++i){
-            double[] xy = DataPool.RNG.doubles((double) Config.N_MAX + 1,(double) 2*Config.N_MAX).limit(2).toArray();
+            double[] xy = DataPool.RNG.doubles((double) Config.N_MAX + 1, (double) 2*Config.N_MAX).limit(2).toArray();
             result += kd.search(new Data<>(xy[0], xy[1]));
         }
 
         return result/counts;
     }
-
 
     public synchronized float successSearchPR() {
         float result = 0;
@@ -108,15 +106,19 @@ public class TestGenerator implements Runnable  {
         for(int j = i; j < bound; ++j)
             result += pr.find(new PRData<>(dp.getPool().get(j)[0], dp.getPool().get(j)[1]));
 
-        return result;
+        return result/counts;
     }
 
     public synchronized float failSearchPR() {
         float result = 0;
-
-        for(int i = 0; i < counts; ++i){
-            double[] xy = DataPool.RNG.doubles((double) Config.N_MAX + 1,(double) 2*Config.N_MAX).limit(2).toArray();
-            result += pr.find(new PRData<>(xy[0], xy[1]));
+        int i = 0;
+        while( i < counts){
+            double x = DataPool.RNG.nextInt(Config.N_MAX);
+            double y = DataPool.RNG.nextInt(Config.N_MAX);
+            if(!pr.getRoot().search(new PRData<>(x, y))) {
+                ++i;
+                result += pr.find(new PRData<>(x, y));
+            }
         }
 
         return result;
