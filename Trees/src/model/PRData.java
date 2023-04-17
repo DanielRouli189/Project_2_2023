@@ -37,6 +37,5 @@ public class PRData<V> {
     public void setValue(V value) {
         this.value = value;
     }
-    
-    
+
 }

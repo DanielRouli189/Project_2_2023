@@ -71,5 +71,5 @@ public class Data<K extends Comparable<? super K>, V> {
     public boolean eq(Data<K,V> o) {
         return this.x == o.x() && this.y == o.y();
     }
-
+    
 }

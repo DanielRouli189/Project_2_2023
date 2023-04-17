@@ -8,6 +8,7 @@ import model.*;
  * generating tests for the kd-Tree and PR-Quadtree data structures.
  * 
  * @author nrouli
+ * @since 2023-04
  * 
  */
 public class App {
@@ -27,6 +28,7 @@ public class App {
     public static App getInstance() {
         return (app == null) ? new App() : app;
     }
+    
     public static void main(String[] args) {
         app = App.getInstance();
 
@@ -49,6 +51,8 @@ public class App {
         app.prQtree.insert(new PRData<>(10,3));
         app.prQtree.insert(new PRData<>(11,11));
 
+        int flag = app.prQtree.find(new PRData<>(11,11));
         
+        System.out.println("data-point was found at depth: "+ flag);
     }
 }

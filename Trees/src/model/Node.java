@@ -18,7 +18,7 @@ public class Node<T>{
      * Creates a new instance of the {@code Node} class.
      * @param data
      */
-    public Node(T data){
+    public Node(T data) {
         this.data = data;
         depth = 0;
     }
@@ -52,7 +52,7 @@ public class Node<T>{
         return depth;
     }
 
-    public void setDepth(int depth){
+    public void setDepth(int depth) {
         this.depth = depth;
     }
 

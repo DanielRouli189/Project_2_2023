@@ -20,6 +20,8 @@ public class PRNode<V> {
 
     /** The data contained in the node */
     private PRData<V> data;
+    /** The depth of the node in the tree */
+    private static int depth = 0;
 
     /** Leaf node Constructor */
     public PRNode(PRData<V> data){
@@ -37,13 +39,18 @@ public class PRNode<V> {
     /** 
      * Determine the nature of the node. If it is a leaf
      * it does not have any children. Otherwise, it does
-     * not contain a value and has exactly four.
+     * not contain a value and has exactly four children.
      */
     public boolean isLeaf() {
         return nw == null && ne == null && sw == null && se == null;
     }
 
-
+    /**
+     * Inserts a new data-point into the PR-QuadTree.
+     * 
+     * @param key The data-point to be inserted.
+     * @return 0 or 1 on success.
+     */
     public int insert(PRData<V> key) {
         if(!hasData() && isLeaf()){
             data = new PRData<>(key.x(), key.y(), key.getValue());
@@ -62,7 +69,7 @@ public class PRNode<V> {
         else
             ne = insert(key, ne, xMid, yMid, this.xMax, this.yMax);
         
-        if(hasData() && !isLeaf()){
+        if(hasData() && !isLeaf()) {
             PRData<V> tmp = this.data;
             this.data = null;
             insert(tmp);
@@ -70,13 +77,35 @@ public class PRNode<V> {
 
         return 0;
     }
-    
-    public PRNode<V> insert(PRData<V> key, PRNode<V> root, double xMin, double yMin, double xMax, double yMax){
+
+    private PRNode<V> insert(PRData<V> key, PRNode<V> root, double xMin, double yMin, double xMax, double yMax){
         if(root == null)
             root = new PRNode<>(xMin, yMin, xMax, yMax);
+        
         root.insert(key);
-
         return root;
+    }
+
+    public synchronized int find(PRData<V> key) {
+        depth = 0;
+        search(key);
+        return depth;
+    }
+
+    public synchronized boolean search(PRData<V> key) {
+        if(this.data != null)
+            return this.data.x() == key.x() && this.data.y() == key.y();
+
+        double xMid = (xMin + xMax)/2;
+        double yMid = (yMin + yMax)/2;
+        if(key.x() < xMid && key.y() < yMid)
+            return this.sw != null && this.sw.search(key) && ++depth > 0;
+        else if(key.x() >= xMid && key.y() < yMid)
+            return this.se != null && this.se.search(key) && ++depth > 0;
+        else if(key.x() < xMid && key.y() >= yMid)
+            return this.nw != null && this.nw.search(key) && ++depth > 0;
+        else
+            return this.ne != null && this.ne.search(key) && ++depth > 0;
     }
 
     public PRNode<V> getNW() {
