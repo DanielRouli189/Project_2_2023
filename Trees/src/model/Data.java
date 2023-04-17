@@ -34,6 +34,27 @@ public class Data<K extends Comparable<? super K>, V> {
         this.value = value;
     }
 
+    /**
+     * Compare two data-points based on the current discriminant.
+     * 
+     * @param o the data to be compared
+     * @return the result of the {@link java.lang.Comparable#compareTo(Object o) compareTo} function.
+     */
+    public int compare(Data<K,V> o) {
+        return (depth % 2 == 0) ? this.x.compareTo(o.x()) : this.y.compareTo(o.y());
+    }
+
+    /**
+     * checks if the data-points are equal.
+     * 
+     * @param o the data-point to be compared
+     * @return true if the coordinates are equal, false, otherwise.
+     */
+    public boolean eq(Data<K,V> o) {
+        return this.x == o.x() && this.y == o.y();
+    }
+
+    /*=================Getters - Setters=================*/
     public K x() { return x; }
 
     public K y() { return y; }
@@ -47,13 +68,5 @@ public class Data<K extends Comparable<? super K>, V> {
     public void setY(K y) { this.y = y; }
 
     public void setDepth(int depth) { this.depth = depth; }
-
-    public int compare(Data<K,V> o) {
-        return (depth % 2 == 0) ? this.x.compareTo(o.x()) : this.y.compareTo(o.y());
-    }
-
-    public boolean eq(Data<K,V> o) {
-        return this.x == o.x() && this.y == o.y();
-    }
 
 }

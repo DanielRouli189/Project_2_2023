@@ -77,6 +77,18 @@ public class PRNode<V> {
         return 0;
     }
 
+    /**
+     * insert helper function. It creates a new node with given boundaries
+     * and inserts the key.
+     * 
+     * @param key the data to be inserted
+     * @param root the root of the tree
+     * @param xMin x-lower bound
+     * @param yMin y-lower bound
+     * @param xMax x-upper bound
+     * @param yMax y-upper bound
+     * @return the node that was inserted.
+     */
     private PRNode<V> insert(PRData<V> key, PRNode<V> root, double xMin, double yMin, double xMax, double yMax){
         if(root == null)
             root = new PRNode<>(xMin, yMin, xMax, yMax);
@@ -85,12 +97,23 @@ public class PRNode<V> {
         return root;
     }
 
+    /**
+     * wrapper function of {@link PRNode#search(PRData) search}.
+     * @param key the data to be inserted.
+     * @return the depth reached in the tree for the search. 
+     */
     public synchronized int find(PRData<V> key) {
         depth = 0;
         search(key);
         return depth;
     }
 
+    /**
+     * 
+     * 
+     * @param key
+     * @return
+     */
     public synchronized boolean search(PRData<V> key) {
         if(this.data != null)
             return this.data.x() == key.x() && this.data.y() == key.y();
@@ -107,6 +130,7 @@ public class PRNode<V> {
             return (this.ne != null && this.ne.search(key)) & ++depth > 0;
     }
 
+    /*=================Getters - Setters=================*/
     public PRNode<V> getNW() { return nw; }
 
     public void setNW(PRNode<V> nw) { this.nw = nw; }

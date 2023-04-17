@@ -7,8 +7,10 @@ import model.*;
 
 public class TestGenerator implements Runnable  {
 
+    /** A kd-Tree with {@code Double} coordinates (x,y) and {@code Integer} value (if any)*/
     private KdTree<Double, Integer> kd;
 
+    /** A PR-QuadTree with {@code String} value (if any) */
     private PRQuadTree<String> pr;
 
     /** A TestStructure object that contains performance information about the test. */
@@ -23,10 +25,19 @@ public class TestGenerator implements Runnable  {
     /* A list to hold the performance metrics of the file structures. */
     private static List<TestStructure> testStructureList = new ArrayList<>();
 
+    /** The singleton instance of the {@code DataPool} class */
     private static DataPool dp = null;
 
+    /** boolean value to verify that the dataPool is filled */
     private static boolean isFull = false;
 
+
+    /**
+     * COnstructs a TestGenerator object with the specified parameters.
+     * @param dataSize the number of {@link Config#TEST_VALUES M} elements to
+     *                 be inserted.
+     * @param counts the number of random searches to be performed.
+     */
     public TestGenerator(int dataSize, int counts){
         this.dataSize = dataSize;
         this.counts = counts;
@@ -41,15 +52,27 @@ public class TestGenerator implements Runnable  {
         }  
     }
 
+    /**
+     * Get the singleton instance of the {@code DataPool} class. If the instance has not yet been
+     * created, it will be created and returned.
+     * @return The singleton instance of the DataPool class.
+     */
     private DataPool instantiateDataPool() {
         return dp == null ?  new DataPool(Config.TEST_VALUES[Config.TEST_VALUES.length - 1]) : dp;
     }
 
+    /**
+     * A flag to verify that the dataPool has been filled.
+     * @return true
+     */
     public static synchronized boolean makeFull() {
         isFull = true;
         return isFull;
     }
 
+    /**
+     * Run the test in a thread.
+     */
     @Override
     public void run() {
         insertKD();
@@ -58,17 +81,30 @@ public class TestGenerator implements Runnable  {
         testStructureList.add(makeTest());
     }
 
+    /**
+     * insert {@link Config#TEST_VALUES M} elements from the dataPool
+     * into the kd-Tree
+     */
     public void insertKD() {
         for(int i = 0; i < dataSize; ++i)
             kd.insert(new Data<>(dp.getPool().get(i)[0], dp.getPool().get(i)[1]));
     }
 
+    /**
+     * insert {@link Config#TEST_VALUES M} elements from the dataPool
+     * into the PR-QuadTree
+     */
     public void insertPR() {
         for(int i = 0; i < dataSize; ++i)
             pr.insert(new PRData<>(dp.getPool().get(i)[0],dp.getPool().get(i)[1]));
     }
 
-
+    /**
+     * Creates a TestStructure object containing results of the search tests
+     * on the Trees.
+     * 
+     * @return the TestStructure object.
+     */
     public TestStructure makeTest() {
         float successKD = successSearchKD();
         float failKD = failSearchKD();
@@ -79,6 +115,12 @@ public class TestGenerator implements Runnable  {
         return testResults;
     }
 
+    /**
+     * Returns the average depth for a search of a key that already exists
+     * in the kd-Tree.
+     * 
+     * @return average depth in the tree for a search.
+     */
     public synchronized float successSearchKD() {
         float result = 0;
         int i = DataPool.RNG.nextInt(Config.N_MAX - counts);
@@ -89,16 +131,33 @@ public class TestGenerator implements Runnable  {
         return result/counts;
     }
 
+    /**
+     * Returns the average depth for a search of a key that is not
+     * in the kd-Tree.
+     * 
+     * @return average depth in the tree for a search.
+     */
     public synchronized float failSearchKD() {
         float result = 0;
-        for(int i = 0; i < counts; ++i){
-            double[] xy = DataPool.RNG.doubles((double) Config.N_MAX + 1, (double) 2*Config.N_MAX).limit(2).toArray();
-            result += kd.search(new Data<>(xy[0], xy[1]));
+        int i = 0;
+        while(i < counts){
+            double x = DataPool.RNG.nextInt(Config.N_MAX);
+            double y = DataPool.RNG.nextInt(Config.N_MAX);
+            if(!kd.find(new Data<>(x, y))) {
+                ++i;
+                result += kd.search(new Data<>(x, y));
+            }
         }
 
         return result/counts;
     }
 
+    /**
+     * Returns the average depth for a search of a key that already exists
+     * in the PR-QuadTree.
+     * 
+     * @return average depth in the tree for a search.
+     */
     public synchronized float successSearchPR() {
         float result = 0;
         int i = DataPool.RNG.nextInt(Config.N_MAX - counts - 1);
@@ -109,6 +168,12 @@ public class TestGenerator implements Runnable  {
         return result/counts;
     }
 
+    /**
+     * Returns the average depth for a search of a key that is not
+     * in the PR-QuadTree.
+     * 
+     * @return average depth in the tree for a search.
+     */
     public synchronized float failSearchPR() {
         float result = 0;
         int i = 0;
@@ -124,6 +189,7 @@ public class TestGenerator implements Runnable  {
         return result/counts;
     }
 
+    /*=================Getters - Setters=================*/
     public KdTree<Double, Integer> getKd() { return kd; }
 
     public void setKd(KdTree<Double, Integer> kd) { this.kd = kd; }
@@ -149,6 +215,6 @@ public class TestGenerator implements Runnable  {
     public static void setTestStructureList(List<TestStructure> testStructureList) {
         TestGenerator.testStructureList = testStructureList;
     }
-
+    
     public DataPool getDp() { return dp; }
 }

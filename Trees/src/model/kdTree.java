@@ -2,8 +2,8 @@ package model;
 
 /**
  * The {@code KdTree} class represents a generic kd-Tree data structure 
- * that performs the operations of {@link #KdTree.insert(key) insertion}, 
- * {@link #KdTree.search(key) searching}, and {@link #KdTree.remove(key) deletion}.
+ * that performs the operations of {@link KdTree#insert(Data) insertion}, 
+ * {@link KdTree#search(Data) searching}, and {@link KdTree#remove(Data) deletion}.
  *  
  * 
  * @author nrouli
@@ -58,20 +58,31 @@ public class KdTree<K extends Comparable<? super K>, V> {
 
     /**
      * Searches for a given data-point in the kd-Tree.
+     * This is a wrapper function to the {@link model.KdTree#search(Data, Node) search}
+     * function that performs a search algorithm on the kd-Tree
      * 
      * @param key The data-point to be searched for in the kd-Tree
      * @return The depth of the data-point in the kd-Tree.
-     * @throws IllegalArgumentException if the key value is null.
+     * @throws NullPointerException if the key value is null.
      */
     public int search(Data<K,V> key) {
         if(key == null)
-            throw new IllegalArgumentException("data-point value is null");
+            throw new NullPointerException("data-point value is null");
         
         key.setDepth(0);
         search(key, this.root);
         return key.depth();
     }
 
+    /**
+     * Performs a search algorithm similar to BST search on the kd-Tree, 
+     * starting from the root of the tree, and recursively traversing it.
+     * 
+     * 
+     * @param key the data-point to be found in the tree
+     * @param root the root of the kd-Tree
+     * @return the root.
+     */
     private Node<Data<K,V>> search(Data<K,V> key, Node<Data<K,V>> root){
         if(root == null)
             return root;
@@ -92,6 +103,41 @@ public class KdTree<K extends Comparable<? super K>, V> {
     }
 
     /**
+     * Searches for a given data-point in the kd-Tree.
+     * This is a wrapper function to the {@link model.KdTree#find(Data, Node) find}
+     * function that performs a search algorithm on the kd-Tree
+     * 
+     * @param key The data-point to be searched for in the kd-Tree
+     * @return The depth of the data-point in the kd-Tree.
+     * @throws NullPointerException if the key value is null.
+     */
+    public boolean find(Data<K,V> key) {
+        if(key == null)
+            throw new NullPointerException("data-point is null");
+
+        return find(key, this.root);
+    }
+
+    private boolean find(Data<K,V> key, Node<Data<K,V>> root) {
+        if(root== null)
+            return false;
+        
+        if(key.eq(root.data()))
+            return true;
+
+        if(key.compare(root.data()) >= 0) {
+            key.setDepth(key.depth()+1);
+            return find(key, root.right());
+        }
+        else if(key.compare(root.data()) < 0 ) {
+            key.setDepth(key.depth()+1);
+            return find(key, root.left());
+        }
+        
+        return false;
+    }
+
+    /**
      * In case I have enough time this will be implemented
      * @param key
      * @return
@@ -100,5 +146,12 @@ public class KdTree<K extends Comparable<? super K>, V> {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'remove'");
     }
+
+    /*=================Getters - Setters=================*/
+    public Node<Data<K, V>> getRoot() { return root; }
+
+    public void setRoot(Node<Data<K, V>> root) { this.root = root; }
+
+    
     
 }

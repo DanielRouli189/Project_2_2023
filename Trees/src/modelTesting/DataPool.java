@@ -36,21 +36,14 @@ public class DataPool {
         }
     }
 
-    public int getSize() {
-        return size;
-    }
+    /*=================Getters - Setters=================*/
+    public int getSize() { return size; }
 
-    public void setSize(int size) {
-        this.size = size;
-    }
+    public void setSize(int size) { this.size = size; }
 
-    public List<Double[]> getPool() {
-        return pool;
-    }
+    public List<Double[]> getPool() { return pool; }
 
-    public void setPool(List<Double[]> pool) {
-        this.pool = pool;
-    }
+    public void setPool(List<Double[]> pool) { this.pool = pool; }
 
     
     

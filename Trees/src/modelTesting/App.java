@@ -9,7 +9,7 @@ import utils.Utils;
 
 /**
  * The {@code App} class is the main class of this application, responsible for
- * generating tests for the kd-Tree and PR-Quadtree data structures.
+ * generating tests for the kd-Tree and PR-QuadTree data structures.
  * 
  * @author nrouli
  * @since 2023-04
@@ -26,12 +26,19 @@ public class App {
     /* The list of threads that run the generators */
     private List<Thread> threads;
 
-
+    /**
+     * Constructs A new App Object.
+     */
     public App() {
         generators = new ArrayList<>();
         threads = new ArrayList<>();
     }
 
+    /**
+     * Get the singleton instance of the app class. If the instance has not yet been
+     * created, it will be created and returned.
+     * @return The singleton instance of the App class.
+     */
     public static App getInstance() {
         return (app == null) ? new App() : app;
     }
@@ -45,12 +52,28 @@ public class App {
         TestGenerator.getTestStructureList().clear();
     }
 
+    /**
+     * The main method of the {@code App} class, which generates tests that
+     * measure the average depth for a search in a kd-Tree and a PR-QuadTree
+     * that contains {@link Config#TEST_VALUES M} elements
+     * 
+     * @param args The command-line arguments to the application.
+     * @throws InterruptedException If one of the threads is interrupted while waiting
+     *                              for another thread to finish.
+     *                          
+     */
     public static void main(String[] args) throws InterruptedException {
         app = App.getInstance();
         app.createTests();
     }
 
-
+    /**
+     * Creates a bunch of threads that each make a new kd-Tree and PR-QuadTree with
+     * {@link Config#TEST_VALUES M} elements and perform random searches on them.
+     * Once the threads have finished running, the results of the tests are printed.
+     * 
+     * @throws InterruptedException
+     */
     public synchronized void createTests() throws InterruptedException {
         resetThreads();
         // Creating a new TestGenerator and Thread for each value in the TEST_VALUES array.

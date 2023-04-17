@@ -23,7 +23,7 @@ public class Node<T>{
         depth = 0;
     }
 
-    /*========= Getters - Setters =========*/
+    /*=================Getters - Setters=================*/
     public T data() { return data; }
     
     public void setData(T data) { this.data = data; }
