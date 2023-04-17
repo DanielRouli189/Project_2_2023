@@ -25,4 +25,4 @@ Meanwhile, the compiled output files will be generated in the `bin` folder by de
 ## Installation Instructions
 # Prerequisites
 - java-14
-- `sudo apt install openjdk-14-jdk`
+``sudo apt install openjdk-14-jdk``
