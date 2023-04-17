@@ -24,36 +24,19 @@ public class Node<T>{
     }
 
     /*========= Getters - Setters =========*/
-    public T data() {
-        return data;
-    }
+    public T data() { return data; }
+    
+    public void setData(T data) { this.data = data; }
+    
+    public Node<T> left() { return left; }
 
-    public void setData(T data) {
-        this.data = data;
-    }
+    public void setLeft(Node<T> left) { this.left = left; }
 
-    public Node<T> left() {
-        return left;
-    }
+    public Node<T> right() { return right; }
 
-    public void setLeft(Node<T> left) {
-        this.left = left;
-    }
+    public void setRight(Node<T> right) { this.right = right; }
 
-    public Node<T> right() {
-        return right;
-    }
+    public int depth() { return depth; }
 
-    public void setRight(Node<T> right) {
-        this.right = right;
-    }
-
-    public int depth() {
-        return depth;
-    }
-
-    public void setDepth(int depth) {
-        this.depth = depth;
-    }
-
+    public void setDepth(int depth) { this.depth = depth; }
 }

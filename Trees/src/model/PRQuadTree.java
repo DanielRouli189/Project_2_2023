@@ -28,18 +28,13 @@ public class PRQuadTree<V> {
         root.insert(key);
     }
 
-
     public int find(PRData<V> key) {
         if(key == null)
             throw new NullPointerException("data-point value is null");
 
-        if(key.x() < xMin || key.x() > xMax || key.y() < yMin || key.y() > yMax)
-            throw new IllegalArgumentException("Point is out of the tree bounds");
+        // if(key.x() < xMin || key.x() > xMax || key.y() < yMin || key.y() > yMax)
+        //     throw new IllegalArgumentException("Point is out of the tree bounds");
 
         return this.root.find(key);
     }
-
-
-
-
 }

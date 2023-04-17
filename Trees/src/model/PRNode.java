@@ -17,7 +17,6 @@ public class PRNode<V> {
     private PRNode<V> sw;
     /** outer right child of the node */
     private PRNode<V> se;
-
     /** The data contained in the node */
     private PRData<V> data;
     /** The depth of the node in the tree */
@@ -108,71 +107,37 @@ public class PRNode<V> {
             return this.ne != null && this.ne.search(key) && ++depth > 0;
     }
 
-    public PRNode<V> getNW() {
-        return nw;
-    }
+    public PRNode<V> getNW() { return nw; }
 
-    public void setNW(PRNode<V> nw) {
-        this.nw = nw;
-    }
+    public void setNW(PRNode<V> nw) { this.nw = nw; }
 
-    public PRNode<V> getNE() {
-        return ne;
-    }
+    public PRNode<V> getNE() { return ne; }
 
-    public void setNE(PRNode<V> ne) {
-        this.ne = ne;
-    }
+    public void setNE(PRNode<V> ne) { this.ne = ne; }
 
-    public PRNode<V> getSW() {
-        return sw;
-    }
+    public PRNode<V> getSW() { return sw; }
 
-    public void setSW(PRNode<V> sw) {
-        this.sw = sw;
-    }
+    public void setSW(PRNode<V> sw) { this.sw = sw; }
 
-    public PRNode<V> getSE() {
-        return se;
-    }
+    public PRNode<V> getSE() { return se; }
 
-    public void setSE(PRNode<V> se) {
-        this.se = se;
-    }
+    public void setSE(PRNode<V> se) { this.se = se; }
 
-    public boolean hasData() {
-        return this.data != null;
-    }
+    public boolean hasData() { return this.data != null; }
 
-    public double getXMin() {
-        return xMin;
-    }
+    public double getXMin() { return xMin; }
 
-    public void setXMin(double xMin) {
-        this.xMin = xMin;
-    }
+    public void setXMin(double xMin) { this.xMin = xMin; }
 
-    public double getYMin() {
-        return yMin;
-    }
+    public double getYMin() { return yMin; }
 
-    public void setYMin(double yMin) {
-        this.yMin = yMin;
-    }
+    public void setYMin(double yMin) { this.yMin = yMin; }
 
-    public double getXMax() {
-        return xMax;
-    }
+    public double getXMax() { return xMax; }
 
-    public void setXMax(double xMax) {
-        this.xMax = xMax;
-    }
+    public void setXMax(double xMax) { this.xMax = xMax; }
 
-    public double getYMax() {
-        return yMax;
-    }
+    public double getYMax() { return yMax; }
 
-    public void setYMax(double yMax) {
-        this.yMax = yMax;
-    }
+    public void setYMax(double yMax) { this.yMax = yMax; }
 }

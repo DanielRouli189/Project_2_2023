@@ -35,41 +35,26 @@ public class Data<K extends Comparable<? super K>, V> {
         this.value = value;
     }
 
-    public K x() {
-        return x;
-    }
+    public K x() { return x; }
 
-    public K y() {
-        return y;
-    }
+    public K y() { return y; }
 
-    public V value() {
-        return value;
-    }
+    public V value() { return value; }
 
-    public int depth() {
-        return depth;
-    }
+    public int depth() { return depth; }
 
-    public void setX(K x) {
-        this.x = x;
-    }
+    public void setX(K x) {this.x = x; }
 
-    public void setY(K y) {
-        this.y = y;
-    }
+    public void setY(K y) { this.y = y; }
 
-    public void setDepth(int depth) {
-        this.depth = depth;
-    }
+    public void setDepth(int depth) { this.depth = depth; }
 
     public int compare(Data<K,V> o) {
         return (depth % 2 == 0) ? this.x.compareTo(o.x()) : this.y.compareTo(o.y());
     }
 
-    
     public boolean eq(Data<K,V> o) {
         return this.x == o.x() && this.y == o.y();
     }
-    
+
 }

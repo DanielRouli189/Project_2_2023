@@ -1,6 +1,10 @@
 package modelTesting;
 
-import model.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import utils.Utils;
 
 
 /**
@@ -16,43 +20,63 @@ public class App {
     /* The Singleton instance of the App class. */
     private static App app = null;
 
-    
-    private KdTree<Integer,Integer> kdTree;
-    private PRQuadTree<Integer> prQtree;
+    /* The list of TestGenerator objects used to generate the test files. */
+    private List<TestGenerator> generators;
+
+    /* The list of threads that run the generators */
+    private List<Thread> threads;
+
 
     public App() {
-        kdTree = new KdTree<>();
-        prQtree = new PRQuadTree<>(Config.N_MIN, Config.N_MAX, Config.N_MIN, Config.N_MAX);
+        generators = new ArrayList<>();
+        threads = new ArrayList<>();
     }
 
     public static App getInstance() {
         return (app == null) ? new App() : app;
     }
-    
-    public static void main(String[] args) {
+
+     /**
+     * Clears the generators and threads lists
+     */
+    public void resetThreads() {
+        generators.clear();
+        threads.clear();
+        TestGenerator.getTestStructureList().clear();
+    }
+
+    public static void main(String[] args) throws InterruptedException {
         app = App.getInstance();
+        app.createTests();
+    }
 
-        app.kdTree.insert(new Data<>(1,7));
-        app.kdTree.insert(new Data<>(4,6));
-        app.kdTree.insert(new Data<>(7,8));
-        app.kdTree.insert(new Data<>(9,9));
-        app.kdTree.insert(new Data<>(10,3));
-        app.kdTree.insert(new Data<>(1,1));
 
-        int i = app.kdTree.search(new Data<>(1,7));
-        System.out.println("key found at depth: "+i);
-        i = app.kdTree.search(new Data<>(1,1));
-        System.out.println("key found at depth: "+i);
+    public synchronized void createTests() throws InterruptedException {
+        resetThreads();
+        // Creating a new TestGenerator and Thread for each value in the TEST_VALUES array.
+        for(int i = 0; i < Config.TEST_VALUES.length; ++i) {
+            generators.add(new TestGenerator(Config.TEST_VALUES[i], 100));
+            threads.add(new Thread(generators.get(i)));
+        }
 
-        app.prQtree.insert(new PRData<>(1,7));
-        app.prQtree.insert(new PRData<>(4,6));
-        app.prQtree.insert(new PRData<>(7,8));
-        app.prQtree.insert(new PRData<>(9,9));
-        app.prQtree.insert(new PRData<>(10,3));
-        app.prQtree.insert(new PRData<>(11,11));
-
-        int flag = app.prQtree.find(new PRData<>(11,11));
+        //Starting all the threads.
+        for(int i=0; i < threads.size(); ++i)
+            threads.get(i).start();
         
-        System.out.println("data-point was found at depth: "+ flag);
+        // Waiting for the threads to finish before continuing
+        for(int i = 0; i < threads.size(); ++i)
+            threads.get(i).join();
+
+        // Sorting the `TestStructure` list by the number of records.
+        Collections.sort(TestGenerator.getTestStructureList(), (g1, g2) -> Utils.compare(g1.dataSize(), g2.dataSize()));
+
+        System.out.println("\n\n"+"|| Successful Searches k-d |"+ "| Failed Searches k-d |"+"| Successful Searches PR |"+ "| Failed Searches PR ||");
+        for(int i = 0; i < threads.size(); i++) {
+            System.out.printf("||%25.2f||%21.2f||%24.2f||%20.2f||\n", 
+            TestGenerator.getTestStructureList().get(i).successKD(), 
+            TestGenerator.getTestStructureList().get(i).failKD(),
+            TestGenerator.getTestStructureList().get(i).successPR(),
+            TestGenerator.getTestStructureList().get(i).failPR());
+        }
     }
 }
