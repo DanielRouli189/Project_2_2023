@@ -37,7 +37,7 @@ public class TestGenerator implements Runnable  {
      *                 be inserted.
      * @param counts the number of random searches to be performed.
      */
-    public TestGenerator(int dataSize, int counts){
+    public TestGenerator(int dataSize, int counts) {
         this.dataSize = dataSize;
         this.counts = counts;
         testResults = new TestStructure(dataSize, 0, 0, 0, 0);
@@ -48,7 +48,7 @@ public class TestGenerator implements Runnable  {
         if(!isFull) {
             dp.fill();
             makeFull();
-        }  
+        }
     }
 
     /**
@@ -122,10 +122,11 @@ public class TestGenerator implements Runnable  {
      */
     public synchronized float successSearchKD() {
         float result = 0;
-        int i = DataPool.RNG.nextInt(Config.N_MAX - counts);
-        int bound = i + counts;
-        for(int j = i; j < bound; ++j)
-            result += kd.search(new Data<>(dp.getPool().get(j)[0], dp.getPool().get(j)[1]));
+
+        for(int j = 0; j < counts; ++j) {
+            int i = DataPool.RNG.nextInt(dp.getPool().size());
+            result += kd.search(new Data<>(dp.getPool().get(i)[0], dp.getPool().get(i)[1]));
+        }
 
         return result/counts;
     }
@@ -159,6 +160,7 @@ public class TestGenerator implements Runnable  {
      */
     public synchronized float successSearchPR() {
         float result = 0;
+
         int i = DataPool.RNG.nextInt(Config.N_MAX - counts - 1);
         int bound = i + counts;
         for(int j = i; j < bound; ++j)

@@ -10,8 +10,9 @@ package model;
  */
 public class KdTree<K extends Comparable<? super K>, V> {
 
-    /** The root of the kdTree */
+    /** The root of the kd-Tree. */
     private Node<Data<K,V>> root;
+
 
     /** Creates a new instance of the {@code KdTree} class. */
     public KdTree() {
@@ -29,6 +30,7 @@ public class KdTree<K extends Comparable<? super K>, V> {
             throw new IllegalArgumentException("data-point value is null");
         
         root = insert(key, root);
+        
         return 0;
     }
 
@@ -44,11 +46,11 @@ public class KdTree<K extends Comparable<? super K>, V> {
             return new Node<>(key);
         
         if(key.compare(root.data()) < 0) {
-            key.setDepth(key.depth()+1);
+            key.setDepth( key.depth() + 1 );
             root.setLeft(insert(key, root.left()));
         }
         else {
-            key.setDepth(key.depth() + 1);
+            key.setDepth( key.depth() + 1 );
             root.setRight(insert(key, root.right()));
         }
 
@@ -148,7 +150,6 @@ public class KdTree<K extends Comparable<? super K>, V> {
     public Node<Data<K, V>> getRoot() { return root; }
 
     public void setRoot(Node<Data<K, V>> root) { this.root = root; }
-
     
     
 }

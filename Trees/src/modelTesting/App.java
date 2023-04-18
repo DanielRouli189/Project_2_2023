@@ -87,7 +87,7 @@ public class App {
         resetThreads();
         // Creating a new TestGenerator and Thread for each value in the TEST_VALUES array.
         for(int i = 0; i < Config.TEST_VALUES.length; ++i) {
-            generators.add(new TestGenerator(Config.TEST_VALUES[i], 1000));
+            generators.add(new TestGenerator(Config.TEST_VALUES[i], 400));
             threads.add(new Thread(generators.get(i)));
         }
 

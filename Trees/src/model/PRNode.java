@@ -109,9 +109,7 @@ public class PRNode<V> {
     }
 
     /**
-     * 
      * Performs a searching algorithm on the PR-QuadTree.
-     * 
      * 
      * @param key the data to be searched.
      * @return true if the key is found, false, otherwise.
