@@ -1,8 +1,10 @@
-package model;
+package unitTesting;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import model.PRData;
+import model.PRQuadTree;
 import modelTesting.Config;
 
 public class PRQuadTreeTest {
@@ -13,7 +15,6 @@ public class PRQuadTreeTest {
     public void setUp() {
         pr = new PRQuadTree<>(Config.N_MIN, Config.N_MAX, Config.N_MIN, Config.N_MAX);
     }
-
 
     @Test
     public void testFind() {

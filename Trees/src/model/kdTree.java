@@ -82,7 +82,7 @@ public class KdTree<K extends Comparable<? super K>, V> {
      * @param root the root of the kd-Tree
      * @return the root.
      */
-    protected Node<Data<K,V>> search(Data<K,V> key, Node<Data<K,V>> root){
+    public Node<Data<K,V>> search(Data<K,V> key, Node<Data<K,V>> root){
         if(root == null)
             return root;
 
@@ -116,12 +116,11 @@ public class KdTree<K extends Comparable<? super K>, V> {
 
         return find(key, this.root);
     }
-
-    protected boolean find(Data<K,V> key, Node<Data<K,V>> root) {
+    
+    public boolean find(Data<K,V> key, Node<Data<K,V>> root) {
         if(root == null) return false;
         
-        if(key.eq(root.data())) 
-            return true;
+        if(key.eq(root.data())) return true;
 
         if(key.compare(root.data()) >= 0) {
             key.setDepth(key.depth()+1);

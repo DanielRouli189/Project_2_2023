@@ -17,6 +17,7 @@ The workspace contains two folders by default, where:
 - `src`: the folder to maintain sources
 - `src/model` : the folder that contains the trees
 - `src/modelTesting` : the folder that contains the testing utilities.
+- `src/unitTesting` : the folder that contains unit tests for the kd-Tree and the PR-QuadTree.
 - `lib`: the folder to maintain dependencies
 
 Meanwhile, the compiled output files will be generated in the `bin` folder by default.

@@ -1,7 +1,10 @@
-package model;
+package unitTesting;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import model.Data;
+import model.KdTree;
 
 public class KdTreeTest {
 

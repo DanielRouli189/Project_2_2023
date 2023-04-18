@@ -70,7 +70,7 @@ public class PRQuadTree<V> {
      * @param key
      * @return
      */
-    protected boolean findTest(PRData<V> key) {
+    public boolean findTest(PRData<V> key) {
         return this.root.search(key);
     }
 
