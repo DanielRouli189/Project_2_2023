@@ -13,7 +13,6 @@ public class KdTree<K extends Comparable<? super K>, V> {
     /** The root of the kd-Tree. */
     private Node<Data<K,V>> root;
 
-
     /** Creates a new instance of the {@code KdTree} class. */
     public KdTree() {
         this.root = null;
