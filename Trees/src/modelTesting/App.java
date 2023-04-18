@@ -1,9 +1,11 @@
 package modelTesting;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import utils.CsvWriter;
 import utils.Utils;
 
 
@@ -65,6 +67,13 @@ public class App {
     public static void main(String[] args) throws InterruptedException {
         app = App.getInstance();
         app.createTests();
+
+        try{
+            CsvWriter.writeCSV(TestGenerator.getTestStructureList());
+        }
+        catch(IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -78,7 +87,7 @@ public class App {
         resetThreads();
         // Creating a new TestGenerator and Thread for each value in the TEST_VALUES array.
         for(int i = 0; i < Config.TEST_VALUES.length; ++i) {
-            generators.add(new TestGenerator(Config.TEST_VALUES[i], 100));
+            generators.add(new TestGenerator(Config.TEST_VALUES[i], 1000));
             threads.add(new Thread(generators.get(i)));
         }
 

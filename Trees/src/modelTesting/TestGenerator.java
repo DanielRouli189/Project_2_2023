@@ -31,7 +31,6 @@ public class TestGenerator implements Runnable  {
     /** boolean value to verify that the dataPool is filled */
     private static boolean isFull = false;
 
-
     /**
      * COnstructs a TestGenerator object with the specified parameters.
      * @param dataSize the number of {@link Config#TEST_VALUES M} elements to
