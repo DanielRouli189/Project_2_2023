@@ -51,7 +51,7 @@ public class Data<K extends Comparable<? super K>, V> {
      * @return true if the coordinates are equal, false, otherwise.
      */
     public boolean eq(Data<K,V> o) {
-        return this.x == o.x() && this.y == o.y();
+        return this.x.equals(o.x()) && this.y.equals(o.y());
     }
 
     /*=================Getters - Setters=================*/

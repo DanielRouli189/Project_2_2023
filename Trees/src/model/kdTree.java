@@ -5,7 +5,6 @@ package model;
  * that performs the operations of {@link KdTree#insert(Data) insertion}, 
  * {@link KdTree#search(Data) searching}, and {@link KdTree#remove(Data) deletion}.
  *  
- * 
  * @author nrouli
  * @since 2023-04
  */
@@ -83,7 +82,7 @@ public class KdTree<K extends Comparable<? super K>, V> {
      * @param root the root of the kd-Tree
      * @return the root.
      */
-    private Node<Data<K,V>> search(Data<K,V> key, Node<Data<K,V>> root){
+    protected Node<Data<K,V>> search(Data<K,V> key, Node<Data<K,V>> root){
         if(root == null)
             return root;
 
@@ -118,11 +117,10 @@ public class KdTree<K extends Comparable<? super K>, V> {
         return find(key, this.root);
     }
 
-    private boolean find(Data<K,V> key, Node<Data<K,V>> root) {
-        if(root== null)
-            return false;
+    protected boolean find(Data<K,V> key, Node<Data<K,V>> root) {
+        if(root == null) return false;
         
-        if(key.eq(root.data()))
+        if(key.eq(root.data())) 
             return true;
 
         if(key.compare(root.data()) >= 0) {
@@ -133,8 +131,8 @@ public class KdTree<K extends Comparable<? super K>, V> {
             key.setDepth(key.depth()+1);
             return find(key, root.left());
         }
-        
-        return false;
+
+        return key.eq(root.data());
     }
 
     /**

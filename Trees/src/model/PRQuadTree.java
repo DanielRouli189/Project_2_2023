@@ -64,6 +64,16 @@ public class PRQuadTree<V> {
         return this.root.find(key);
     }
 
+    /**
+     * used for unit testing purposes.
+     * 
+     * @param key
+     * @return
+     */
+    protected boolean findTest(PRData<V> key) {
+        return this.root.search(key);
+    }
+
     /*=================Getters - Setters=================*/
     public PRNode<V> getRoot() { return root; }
 
