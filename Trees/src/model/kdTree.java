@@ -1,5 +1,6 @@
 package model;
 
+
 /**
  * The {@code KdTree} class represents a generic kd-Tree data structure 
  * that performs the operations of {@link KdTree#insert(Data) insertion}, 

@@ -1,11 +1,9 @@
 package modelTesting;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import model.PRData;
 import utils.CsvWriter;
 import utils.Utils;
 
@@ -69,12 +67,8 @@ public class App {
         app = App.getInstance();
         app.createTests();
 
-        try{
-            CsvWriter.writeCSV(TestGenerator.getTestStructureList());
-        }
-        catch(IOException e) {
-            e.printStackTrace();
-        }
+        CsvWriter.writeCSV(TestGenerator.getTestStructureList());
+    
     }
 
     /**

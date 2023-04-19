@@ -26,7 +26,7 @@ public class TestGenerator implements Runnable  {
     private static List<TestStructure> testStructureList = new ArrayList<>();
 
     /** The singleton instance of the {@code DataPool} class */
-    private static DataPool dp = null;
+    private static DataPool dp = instantiateDataPool();
 
     /** boolean value to verify that the dataPool is filled */
     private static boolean isFull = false;
@@ -43,7 +43,6 @@ public class TestGenerator implements Runnable  {
         testResults = new TestStructure(dataSize, 0, 0, 0, 0);
         kd = new KdTree<>();
         pr = new PRQuadTree<>(Config.N_MIN, Config.N_MAX, Config.N_MIN, Config.N_MAX);
-        dp = instantiateDataPool();
 
         if(!isFull) {
             dp.fill();
@@ -56,7 +55,7 @@ public class TestGenerator implements Runnable  {
      * created, it will be created and returned.
      * @return The singleton instance of the DataPool class.
      */
-    private DataPool instantiateDataPool() {
+    private static DataPool instantiateDataPool() {
         return dp == null ?  new DataPool(Config.TEST_VALUES[Config.TEST_VALUES.length - 1]) : dp;
     }
 

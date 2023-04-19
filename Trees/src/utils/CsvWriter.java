@@ -11,6 +11,7 @@ import modelTesting.TestStructure;
  */
 public class CsvWriter {
 
+
     /**
      * This is a private constructor for the CsvWriter class that throws an IllegalStateException.
      * This is done to prevent the class from being instantiated, as it
@@ -26,19 +27,21 @@ public class CsvWriter {
      * @param tests A list of TestStructure objects that contain the results of various tests.
      * @throws IOException if the file is not created.
      */
-    public static void writeCSV(List<TestStructure> tests) throws IOException {
-        FileWriter csvWriter = new FileWriter("tests.csv");
+    public static void writeCSV(List<TestStructure> tests) {
+        try(FileWriter csvWriter = new FileWriter("tests.csv");){
+        
+            csvWriter.append("Data Size, Successful Searches k-d, Failed searches k-d, Successful Searches PR, Failed searches PR \n");
+            for(TestStructure test : tests)
+                csvWriter.append(Integer.toString(test.dataSize())).append(",")
+                        .append(Float.toString(test.successKD())).append(",")
+                        .append(Float.toString(test.failKD())).append(",")
+                        .append(Float.toString(test.successPR())).append(",")
+                        .append(Float.toString(test.failPR())+"\n");
+        }
+        catch(IOException e){
+            e.printStackTrace();
+        }
 
-        csvWriter.append("Data Size, Successful Searches k-d, Failed searches k-d, Successful Searches PR, Failed searches PR \n");
-        for(TestStructure test : tests)
-            csvWriter.append(Integer.toString(test.dataSize())).append(",")
-                     .append(Float.toString(test.successKD())).append(",")
-                     .append(Float.toString(test.failKD())).append(",")
-                     .append(Float.toString(test.successPR())).append(",")
-                     .append(Float.toString(test.failPR())+"\n");
-    
-        csvWriter.flush();
-        csvWriter.close();
         System.out.println("Test results have been written to tests.csv");
     }   
 
