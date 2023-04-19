@@ -6,12 +6,26 @@ import java.util.List;
 
 import modelTesting.TestStructure;
 
+/**
+ * The CsvWriter class writes test results to a CSV file.
+ */
 public class CsvWriter {
 
+    /**
+     * This is a private constructor for the CsvWriter class that throws an IllegalStateException.
+     * This is done to prevent the class from being instantiated, as it
+     * only contains static methods and should not be instantiated.
+     */
     private CsvWriter() {
         throw new IllegalStateException("CSV Writer class");
     }
 
+    /**
+     * The function writes test results to a CSV file.
+     * 
+     * @param tests A list of TestStructure objects that contain the results of various tests.
+     * @throws IOException if the file is not created.
+     */
     public static void writeCSV(List<TestStructure> tests) throws IOException {
         FileWriter csvWriter = new FileWriter("tests.csv");
 

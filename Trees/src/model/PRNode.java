@@ -23,11 +23,11 @@ public class PRNode<V> {
     private static int depth = 0;
 
     /** Leaf node Constructor */
-    public PRNode(PRData<V> data){
+    public PRNode(PRData<V> data) {
         this.data = data;
     }
 
-    /** Child node Constructor */
+    /** Internal node Constructor */
     public PRNode(double xMin, double yMin, double xMax, double yMax) {
         this.xMin = xMin;
         this.xMax = xMax;
@@ -130,6 +130,35 @@ public class PRNode<V> {
             return (this.ne != null && this.ne.search(key)) & ++depth > 0;
     }
 
+    /**
+     * Performs a searching algorithm on the PR-QuadTree.
+     * 
+     * @param key the data to be searched.
+     * @return true if the key is found, false, otherwise.
+     */
+    public synchronized PRNode<V> search(PRData<V> key, PRNode<V> root) {
+        if(root == null & ++depth > 0)
+            return root;
+
+        double xMid = (xMin + xMax)/2;
+        double yMid = (yMin + yMax)/2;
+        if(key.x() < xMid && key.y() < yMid && this.sw != null)
+            return this.sw.search(key, this.sw);
+        else if(key.x() >= xMid && key.y() < yMid && this.sw != null)
+            return this.se.search(key, this.se);
+        else if(key.x() < xMid && key.y() >= yMid && this.nw != null)
+            return this.nw.search(key, this.nw);
+        else if(this.ne != null)
+            return this.ne.search(key, this.nw);
+
+        return root;
+    }
+
+    
+
+
+    
+
     /*=================Getters - Setters=================*/
     public PRNode<V> getNW() { return nw; }
 
@@ -146,6 +175,10 @@ public class PRNode<V> {
     public PRNode<V> getSE() { return se; }
 
     public void setSE(PRNode<V> se) { this.se = se; }
+
+    public PRData<V> getData() { return data; }
+
+    public static int getDepth() { return depth; }
 
     public boolean hasData() { return this.data != null; }
 

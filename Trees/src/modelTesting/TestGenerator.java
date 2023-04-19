@@ -76,7 +76,6 @@ public class TestGenerator implements Runnable  {
     public void run() {
         insertKD();
         insertPR();
-
         testStructureList.add(makeTest());
     }
 
@@ -161,10 +160,10 @@ public class TestGenerator implements Runnable  {
     public synchronized float successSearchPR() {
         float result = 0;
 
-        int i = DataPool.RNG.nextInt(Config.N_MAX - counts - 1);
-        int bound = i + counts;
-        for(int j = i; j < bound; ++j)
-            result += pr.find(new PRData<>(dp.getPool().get(j)[0], dp.getPool().get(j)[1]));
+        for(int j = 0; j < counts; ++j){
+            int i = DataPool.RNG.nextInt(dp.getPool().size());
+            result += pr.find(new PRData<>(dp.getPool().get(i)[0], dp.getPool().get(i)[1]));
+        }
 
         return result/counts;
     }

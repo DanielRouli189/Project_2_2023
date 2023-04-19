@@ -135,16 +135,6 @@ public class KdTree<K extends Comparable<? super K>, V> {
         return key.eq(root.data());
     }
 
-    /**
-     * In case I have enough time this will be implemented
-     * @param key
-     * @return
-     */
-    public int remove(Data<K,V> key) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'remove'");
-    }
-
     /*=================Getters - Setters=================*/
     public Node<Data<K, V>> getRoot() { return root; }
 
