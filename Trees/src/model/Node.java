@@ -1,6 +1,11 @@
 package model;
 
-public class Node<T>{
+
+/**
+ * The {@code Node} class represents a node in the kd-Tree.
+ * It contains data, a left and a right node.
+ */
+public class Node<T> {
     
     /** The content of the node */
     private T data;

@@ -48,13 +48,17 @@ public class PRNode<V> {
      * Inserts a new data-point into the PR-QuadTree.
      * 
      * @param key The data-point to be inserted.
-     * @return 0 or 1 on success.
+     * @return 0 or 1 on success, -1 if the given key
+     * already exists in the tree.
      */
     public int insert(PRData<V> key) {
         if(!hasData() && isLeaf()){
             data = new PRData<>(key.x(), key.y(), key.getValue());
             return 1;
         }
+
+        if(hasData() && isLeaf() && this.getData().x() == key.x() && this.getData().y() == key.y())
+            return -1;
 
         double xMid = (xMin + xMax)/2;
         double yMid = (yMin + yMax)/2;
@@ -120,6 +124,7 @@ public class PRNode<V> {
 
         double xMid = (xMin + xMax)/2;
         double yMid = (yMin + yMax)/2;
+        
         if(key.x() < xMid && key.y() < yMid)
             return (this.sw != null && this.sw.search(key)) & ++depth > 0;
         else if(key.x() >= xMid && key.y() < yMid)
@@ -154,10 +159,6 @@ public class PRNode<V> {
         return root;
     }
 
-    
-
-
-    
 
     /*=================Getters - Setters=================*/
     public PRNode<V> getNW() { return nw; }

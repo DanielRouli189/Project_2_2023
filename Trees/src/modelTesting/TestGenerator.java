@@ -28,11 +28,11 @@ public class TestGenerator implements Runnable  {
     /** The singleton instance of the {@code DataPool} class */
     private static DataPool dp = instantiateDataPool();
 
-    /** boolean value to verify that the dataPool is filled */
+    /** boolean value to verify that the dataPool has been filled */
     private static boolean isFull = false;
 
     /**
-     * COnstructs a TestGenerator object with the specified parameters.
+     * Constructs a TestGenerator object with the specified parameters.
      * @param dataSize the number of {@link Config#TEST_VALUES M} elements to
      *                 be inserted.
      * @param counts the number of random searches to be performed.
@@ -122,7 +122,7 @@ public class TestGenerator implements Runnable  {
         float result = 0;
 
         for(int j = 0; j < counts; ++j) {
-            int i = DataPool.RNG.nextInt(dp.getPool().size());
+            int i = DataPool.RNG.nextInt(dataSize);
             result += kd.search(new Data<>(dp.getPool().get(i)[0], dp.getPool().get(i)[1]));
         }
 
@@ -138,7 +138,7 @@ public class TestGenerator implements Runnable  {
     public synchronized float failSearchKD() {
         float result = 0;
         int i = 0;
-        while(i < counts){
+        while(i < counts) {
             double x = DataPool.RNG.nextInt(Config.N_MAX);
             double y = DataPool.RNG.nextInt(Config.N_MAX);
             if(!kd.find(new Data<>(x, y))) {
@@ -160,7 +160,7 @@ public class TestGenerator implements Runnable  {
         float result = 0;
 
         for(int j = 0; j < counts; ++j){
-            int i = DataPool.RNG.nextInt(dp.getPool().size());
+            int i = DataPool.RNG.nextInt(dataSize);
             result += pr.find(new PRData<>(dp.getPool().get(i)[0], dp.getPool().get(i)[1]));
         }
 
@@ -183,6 +183,19 @@ public class TestGenerator implements Runnable  {
                 ++i;
                 result += pr.find(new PRData<>(x, y));
             }
+        }
+
+        return result/counts;
+    }
+
+    public synchronized float randomRangeSearchKD() {
+        float result = 0;
+        for(int i = 0 ; i< counts;++i){
+            double lbx = DataPool.RNG.nextDouble() * (Config.N_MAX - counts);
+            double lby = DataPool.RNG.nextDouble() * (Config.N_MAX - counts);
+            Data<Double, Integer> lb = new Data<>(lbx, lby);
+            Data<Double, Integer> ub = new Data<>(lbx + counts, lby + counts);
+            result += kd.rangeQuery(lb, ub).size();
         }
 
         return result/counts;

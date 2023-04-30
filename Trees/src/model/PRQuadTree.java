@@ -66,9 +66,10 @@ public class PRQuadTree<V> {
 
     /**
      * used for unit testing purposes.
+     * This is a wrapper function of {@link PRNode#search(PRData) search}.
      * 
-     * @param key
-     * @return
+     * @param key the key to be found
+     * @return true if the key is found, false, otherwise.
      */
     public boolean findTest(PRData<V> key) {
         return this.root.search(key);

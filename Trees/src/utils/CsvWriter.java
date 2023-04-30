@@ -30,7 +30,7 @@ public class CsvWriter {
     public static void writeCSV(List<TestStructure> tests) {
         try(FileWriter csvWriter = new FileWriter("tests.csv");){
         
-            csvWriter.append("Data Size, Successful Searches k-d, Failed searches k-d, Successful Searches PR, Failed searches PR \n");
+            csvWriter.append("Data Size, Successful Searches k-d, Failed searches k-d, Successful Searches PR, Failed searches PR, Range Queries KD \n");
             for(TestStructure test : tests)
                 csvWriter.append(Integer.toString(test.dataSize())).append(",")
                         .append(Float.toString(test.successKD())).append(",")

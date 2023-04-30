@@ -12,7 +12,7 @@ public class Config {
     public static final int N_MIN = 0;
 
 
-    private Config(){
+    private Config() {
         throw new IllegalStateException("Configuration class");
     }
 
