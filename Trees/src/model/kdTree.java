@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * The {@code KdTree} class represents a generic kd-Tree data structure 
  * that performs the operations of {@link KdTree#insert(Data) insertion}, 
- * {@link KdTree#search(Data) searching}, and {@link KdTree#remove(Data) deletion}.
+ * {@link KdTree#search(Data) searching}, and {@link KdTree#rangeQuery(Data, Data) range search}.
  *  
  * @author nrouli
  * @since 2023-04
@@ -43,7 +43,7 @@ public class KdTree<K extends Comparable<? super K>, V> {
      * @param root The root node of the kd-tree where the new key will be inserted.
      * @return The root of the kd-tree.
      */
-    private Node<Data<K,V>> insert(Data<K,V> key, Node<Data<K,V>> root){
+    protected Node<Data<K,V>> insert(Data<K,V> key, Node<Data<K,V>> root){
         if(root == null)
             return new Node<>(key);
         
