@@ -112,6 +112,7 @@ public class PRNode<V> {
         return depth;
     }
 
+    
     /**
      * Performs a searching algorithm on the PR-QuadTree.
      * 
@@ -147,6 +148,7 @@ public class PRNode<V> {
 
         double xMid = (xMin + xMax)/2;
         double yMid = (yMin + yMax)/2;
+        
         if(key.x() < xMid && key.y() < yMid && this.sw != null)
             return this.sw.search(key, this.sw);
         else if(key.x() >= xMid && key.y() < yMid && this.sw != null)

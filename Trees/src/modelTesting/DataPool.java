@@ -26,14 +26,26 @@ public class DataPool {
     }
 
     /**
-     * fill the list with random numbers.
+     * fill the list with random numbers, uniformly distributed in range [{@link Config#N_MIN min}, {@link Config#N_MAX max}).
      */
     public void fill() {
-        double[] xy = new double[2];
+
         for(int i = 0; i < size; ++i) {
-            xy= RNG.doubles(Config.N_MIN, Config.N_MAX).limit(2).toArray();
-            Double x = xy[0];
-            Double y = xy[1];
+            Double x = RNG.nextDouble() * (Config.N_MAX - Config.N_MIN);
+            Double y = RNG.nextDouble() * (Config.N_MAX - Config.N_MIN);
+            Double[] key = {x,y};
+            pool.add(key);
+        }
+    }
+
+    /**
+     * fill the list with random numbers, normally distributed in range [{@link Config#N_MIN min}, {@link Config#N_MAX max}).
+     */
+    public void fillGaussian() {
+
+        for(int i = 0; i < size; ++i) {
+            Double x = Math.min(Math.abs(RNG.nextGaussian() * (Config.N_MAX - Config.N_MIN)/2), Config.N_MAX - 1);
+            Double y = Math.min(Math.abs(RNG.nextGaussian() * (Config.N_MAX - Config.N_MIN)/2), Config.N_MAX - 1);
             Double[] key = {x,y};
             pool.add(key);
         }

@@ -188,9 +188,10 @@ public class TestGenerator implements Runnable  {
         return result/counts;
     }
 
+
     public synchronized float randomRangeSearchKD() {
         float result = 0;
-        for(int i = 0 ; i< counts;++i){
+        for(int i = 0 ; i< counts;++i) {
             double lbx = DataPool.RNG.nextDouble() * (Config.N_MAX - counts);
             double lby = DataPool.RNG.nextDouble() * (Config.N_MAX - counts);
             Data<Double, Integer> lb = new Data<>(lbx, lby);

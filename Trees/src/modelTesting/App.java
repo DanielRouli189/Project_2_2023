@@ -65,10 +65,8 @@ public class App {
      */
     public static void main(String[] args) throws InterruptedException {
         app = App.getInstance();
-        app.createTests();
-
+        app.makeTests();
         CsvWriter.writeCSV(TestGenerator.getTestStructureList());
-    
     }
 
     /**
@@ -78,7 +76,8 @@ public class App {
      * 
      * @throws InterruptedException
      */
-    public synchronized void createTests() throws InterruptedException {
+    public synchronized void makeTests() throws InterruptedException {
+
         resetThreads();
         // Creating a new TestGenerator and Thread for each value in the TEST_VALUES array.
         for(int i = 0; i < Config.TEST_VALUES.length; ++i) {
